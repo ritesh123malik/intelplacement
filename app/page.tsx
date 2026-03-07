@@ -196,7 +196,7 @@ export default function HomePage() {
           <GlassCard className="bg-gradient-to-r from-primary-600 to-accent-purple p-12 md:p-16 text-center border-none shadow-2xl shadow-primary-500/30 overflow-hidden relative" glowColor="none" hoverEffect={false}>
             <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">Built for LNMIITians. Free Forever.</h2>
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">Built for LNMIITians.</h2>
               <p className="text-white/80 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
                 Join hundreds of your batchmates already using Selection Intel to crack top companies.
               </p>
