@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 17, 24, 39;
+  --background-rgb: 249, 250, 251;
+  --background: #f9fafb;
+  --foreground: #111827;
+  --primary: #4f46e5;
+  --primary-purple: #7c3aed;
+  --border: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+}
+
+body {
+  color: var(--text-primary);
+  background-color: var(--background);
+}
+
+/* Skip to content - a11y */
+.skip-link {
+  @apply absolute left-4 -top-12 z-[100] bg-primary-600 text-white px-4 py-2 rounded-xl font-medium focus:top-4 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all;
+}
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+}
+
+@layer components {
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-2xl border border-gray-200 shadow-card p-5 transition-all duration-200;
+  }
+
+  .card-hover:hover {
+    @apply shadow-card-hover border-gray-300 scale-[1.01];
+  }
+
+  /* Badges - keep branch/semantic colors */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-lg px-2.5 py-0.5 text-xs font-medium border;
+  }
+
+  .badge-easy {
+    background-color: #ecfdf5;
+    color: #047857;
+    border-color: #a7f3d0;
+  }
+
+  .badge-medium {
+    background-color: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+  }
+
+  .badge-hard {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+  }
+
+  .badge-pro {
+    @apply bg-primary-50 text-primary-700 border-primary-200;
+  }
+
+  /* Buttons - min-height 44px for touch */
+  .btn-primary {
+    @apply inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-xl font-medium text-white bg-gradient-to-r from-primary-600 to-accent-purple shadow-sm hover:opacity-95 hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-200;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-xl font-medium text-gray-700 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 transition-all;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-xl font-medium text-amber-900 bg-amber-100 border border-amber-200 hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50 transition-all;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-500;
+  }
+
+  /* Noise overlay (subtle) - Fixed to prevent children fading */
+  .noise {
+    position: relative;
+  }
+
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.03;
+    z-index: 10;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Text on gradients - ensure visibility */
+  .text-glow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .text-on-gradient {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 0 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-xl border border-gray-200/80 shadow-lg;
+  }
+}
+
+/* Scrollbar - light theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Force all gradient buttons to be visible */
+button.bg-gradient-to-r,
+[class*="bg-gradient-to-r"] {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  font-weight: 600 !important;
+  border: none !important;
+  opacity: 1 !important;
+}
+
+button.bg-gradient-to-r span,
+[class*="bg-gradient-to-r"] span,
+button.bg-gradient-to-r svg,
+[class*="bg-gradient-to-r"] svg {
+  color: white !important;
+  opacity: 1 !important;
+}
+
+/* Fix for disabled state */
+button:disabled,
+button[disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Fix for loading spinners */
+.animate-spin {
+  border-color: white !important;
+  border-top-color: transparent !important;
+}
+
+/* Ensure text is never transparent */
+.text-white,
+.text-indigo-100,
+.text-purple-100 {
+  color: white !important;
+  opacity: 1 !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
