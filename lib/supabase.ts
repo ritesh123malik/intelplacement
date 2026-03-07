@@ -3,8 +3,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { createBrowserClient } from '@supabase/ssr';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder';
 
 // Browser client — use in components and client pages
 export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
@@ -12,7 +12,7 @@ export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
 // Server/admin client — use in API routes only (bypasses RLS)
 export const supabaseAdmin = createClient(
   supabaseUrl,
-  typeof window !== 'undefined' ? 'dummy' : process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  typeof window !== 'undefined' ? 'dummy' : (process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder'),
   { auth: { persistSession: false } }
 );
 
