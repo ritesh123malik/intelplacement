@@ -1,74 +1,57 @@
 'use client';
 
 import Link from 'next/link';
+import {
+  BuildingOfficeIcon,
+  CalculatorIcon,
+  ChartBarIcon,
+  HomeIcon,
+  BeakerIcon,
+  BriefcaseIcon,
+  ComputerDesktopIcon,
+  ClockIcon,
+} from '@heroicons/react/24/outline';
+
+const footerLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/companies', label: 'Companies' },
+  { href: '/cgpa-calculator', label: 'CGPA' },
+  { href: '/spaced-repetition', label: 'Review' },
+  { href: '/applications', label: 'Trackers' },
+  { href: '/system-design', label: 'System Design' },
+  { href: '/quiz', label: 'Quizzes' },
+  { href: '/leaderboard', label: 'Leaderboard' },
+];
 
 export default function Footer() {
-  const footerLinks = {
-    Product: [
-      { href: '/roadmap', label: 'AI Roadmap' },
-      { href: '/applications', label: 'Job Tracker' },
-      { href: '/resume', label: 'Resume Scorer' },
-    ],
-    Resources: [
-      { href: '/companies', label: 'Interview Hub' },
-      { href: '/guides', label: 'Guides' },
-      { href: '/community', label: 'Community' },
-    ],
-    Support: [
-      { href: '/help', label: 'Help Center' },
-      { href: '/contact', label: 'Contact' },
-      { href: '/status', label: 'Status' },
-    ]
-  };
-
   return (
-    <footer className="border-t border-white/5 bg-[#030712] py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-          <div className="max-w-xs">
-            <Link href="/" className="flex items-center gap-2 mb-6 group transition-opacity hover:opacity-80">
-              <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-xs">P</span>
-              </div>
-              <span className="font-bold text-lg text-white">PlacementIntel</span>
-            </Link>
-            <p className="text-slate-500 text-sm leading-relaxed mb-6">
-              Crafted for students, by students. The ultimate companion for your professional journey.
-            </p>
-            <div className="flex gap-4">
-              {/* Social placeholders */}
-              <div className="w-5 h-5 bg-slate-800 rounded"></div>
-              <div className="w-5 h-5 bg-slate-800 rounded"></div>
-              <div className="w-5 h-5 bg-slate-800 rounded"></div>
+    <footer className="mt-auto border-t border-gray-200 bg-white" role="contentinfo">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-purple flex items-center justify-center">
+              <span className="text-white font-bold text-sm">P</span>
             </div>
+            <span className="font-display font-bold text-gray-900 tracking-tight">
+              placement<span className="text-primary-600">Intel</span>
+            </span>
           </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-16">
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <div key={category}>
-                <h4 className="text-sm font-bold mb-6 text-white">{category}</h4>
-                <ul className="space-y-4">
-                  {links.map((link) => (
-                    <li key={link.href}>
-                      <Link href={link.href} className="text-sm text-slate-500 hover:text-white transition-colors">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer navigation">
+            {footerLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                {link.label}
+              </Link>
             ))}
-          </div>
+          </nav>
         </div>
-
-        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="text-sm text-slate-500 text-center sm:text-left">
-            © 2024 PlacementIntel. Not affiliated with LNMIIT Administration.
-          </div>
-          <div className="flex gap-8">
-            <Link href="/privacy" className="text-xs text-slate-500 hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="text-xs text-slate-500 hover:text-white transition-colors">Terms of Service</Link>
-          </div>
+        <div className="mt-8 pt-8 border-t border-gray-100">
+          <p className="text-sm text-gray-500 text-center md:text-left">
+            Placement preparation for LNMIIT students. Company-wise questions, AI roadmaps, spaced repetition & more.
+          </p>
         </div>
       </div>
     </footer>
