@@ -248,7 +248,18 @@ export default function CompanyPage() {
 
               <div className="space-y-4">
                 {filteredQuestions.map((q: any, i: number) => (
-                  <div key={q.id} className="group p-6 bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-2xl flex items-center justify-between hover:border-[var(--brand-primary)]/50 transition-all cursor-pointer">
+                  <div
+                    key={q.id}
+                    onClick={() => {
+                      if (q.source_url) {
+                        window.open(q.source_url, '_blank');
+                      } else {
+                        const searchQuery = encodeURIComponent(`${q.question} ${company.name} interview question`);
+                        window.open(`https://www.google.com/search?q=${searchQuery}`, '_blank');
+                      }
+                    }}
+                    className="group p-6 bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-2xl flex items-center justify-between hover:border-[var(--brand-primary)]/50 transition-all cursor-pointer"
+                  >
                     <div className="flex items-center gap-6">
                       <span className="text-xs font-black text-[var(--text-muted)] font-mono">#{String(i + 1).padStart(3, '0')}</span>
                       <div>

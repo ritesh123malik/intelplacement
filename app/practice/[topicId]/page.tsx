@@ -25,7 +25,11 @@ const TOPIC_DETAILS: Record<string, any> = {
 
 export default function TopicPractice() {
     const { topicId } = useParams();
-    const topic = TOPIC_DETAILS[topicId as string] || { name: 'Topic Not Found', count: 0, icon: <Brain /> };
+    const topic = TOPIC_DETAILS[topicId as string] || {
+        name: (topicId as string)?.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) || 'Practice Modules',
+        count: 0,
+        icon: <Brain className="text-gray-500" />
+    };
     const [filter, setFilter] = useState('All');
 
     const MOCK_QUESTIONS = [
@@ -77,13 +81,17 @@ export default function TopicPractice() {
                     </div>
 
                     <div className="lg:col-span-3 space-y-4">
-                        {MOCK_QUESTIONS.map((q, idx) => (
+                        {MOCK_QUESTIONS.filter(q => filter === 'All' || q.difficulty === filter).map((q, idx) => (
                             <motion.div
                                 key={q.id}
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: idx * 0.05 }}
-                                className="group p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:border-blue-500/30 transition-all flex items-center justify-between"
+                                onClick={() => {
+                                    const query = encodeURIComponent(`${q.title} interview question`);
+                                    window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                                }}
+                                className="group p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:border-blue-500/30 transition-all flex items-center justify-between cursor-pointer"
                             >
                                 <div className="flex items-center gap-6">
                                     <div className={`w-2 h-12 rounded-full ${q.difficulty === 'Easy' ? 'bg-emerald-500/50' : q.difficulty === 'Medium' ? 'bg-amber-500/50' : 'bg-red-500/50'}`} />
@@ -102,9 +110,9 @@ export default function TopicPractice() {
                                     {q.status === 'Solved' ? (
                                         <CheckCircle2 className="text-emerald-500" size={20} />
                                     ) : (
-                                        <button className="p-4 rounded-2xl bg-white/5 hover:bg-blue-600 text-gray-400 hover:text-white transition-all group-hover:scale-105 active:scale-95">
+                                        <div className="p-4 rounded-2xl bg-white/5 group-hover:bg-blue-600 text-gray-400 group-hover:text-white transition-all group-hover:scale-105 active:scale-95">
                                             <Play size={16} fill="currentColor" />
-                                        </button>
+                                        </div>
                                     )}
                                 </div>
                             </motion.div>

@@ -31,6 +31,7 @@ export default function AdminClient({ companies, questions, users, subscriptions
   const [qDifficulty, setQDifficulty] = useState<'Easy' | 'Medium' | 'Hard'>('Medium');
   const [qFrequency, setQFrequency] = useState('1');
   const [qYear, setQYear] = useState(new Date().getFullYear().toString());
+  const [qSourceUrl, setQSourceUrl] = useState('');
   const [qSaving, setQSaving] = useState(false);
 
   async function addCompany(e: React.FormEvent) {
@@ -59,10 +60,11 @@ export default function AdminClient({ companies, questions, users, subscriptions
       topic: qTopic || null, difficulty: qDifficulty,
       frequency: parseInt(qFrequency) || 1,
       year_reported: parseInt(qYear) || null,
+      source_url: qSourceUrl || null,
       is_approved: true,
     });
     if (!error) {
-      setQQuestion(''); setQTopic('');
+      setQQuestion(''); setQTopic(''); setQSourceUrl('');
       alert('Question added!');
     } else {
       alert('Error: ' + error.message);
@@ -91,7 +93,8 @@ export default function AdminClient({ companies, questions, users, subscriptions
       await supabase.from('questions').insert({
         company_id: companyId, round: data.round, question: data.question,
         topic: data.topic, difficulty: data.difficulty || 'Medium',
-        year_reported: data.year_appeared, is_approved: true,
+        year_reported: data.year_appeared, source_url: data.source_url || null,
+        is_approved: true,
       });
     }
     await supabase.from('question_submissions').update({
@@ -283,6 +286,10 @@ export default function AdminClient({ companies, questions, users, subscriptions
                   <label className="section-label block mb-1.5">Year</label>
                   <input type="number" value={qYear} onChange={e => setQYear(e.target.value)} className="input" />
                 </div>
+              </div>
+              <div>
+                <label className="section-label block mb-1.5">Source URL (LeetCode/GFG)</label>
+                <input value={qSourceUrl} onChange={e => setQSourceUrl(e.target.value)} placeholder="https://leetcode.com/problems/..." className="input" />
               </div>
               <button type="submit" disabled={qSaving} className="btn-primary flex items-center gap-2">
                 <Plus size={16} />{qSaving ? 'Adding...' : 'Add Question'}

@@ -81,17 +81,32 @@ export default function QuestionCard({ question, isBookmarked: initialBookmarked
           </div>
 
           <div className="flex items-start gap-2">
-            <p className={clsx(
-              'text-gray-900 text-sm leading-relaxed flex-1',
-              !expanded && 'line-clamp-2'
-            )}>
+            <p
+              className={clsx(
+                'text-gray-900 text-sm leading-relaxed flex-1 cursor-pointer hover:text-primary-600 transition-colors',
+                !expanded && 'line-clamp-2'
+              )}
+              onClick={() => {
+                if (question.source_url) {
+                  window.open(question.source_url, '_blank');
+                } else {
+                  const query = encodeURIComponent(`${question.question} interview question`);
+                  window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                }
+              }}
+            >
               {question.question}
             </p>
-            {question.source_url && (
-              <a href={question.source_url} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 transition-colors mt-0.5 flex-shrink-0 p-2 hover:bg-primary-50 rounded-xl" title="View source" aria-label="Open source link">
-                <ExternalLink size={20} aria-hidden />
-              </a>
-            )}
+            <a
+              href={question.source_url || `https://www.google.com/search?q=${encodeURIComponent(question.question + ' interview question')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:text-primary-700 transition-colors mt-0.5 flex-shrink-0 p-2 hover:bg-primary-50 rounded-xl"
+              title={question.source_url ? "View source" : "Search for solution"}
+              aria-label={question.source_url ? "Open source link" : "Search for solution"}
+            >
+              {question.source_url ? <ExternalLink size={20} aria-hidden /> : <TrendingUp size={20} aria-hidden />}
+            </a>
           </div>
 
           {question.question.length > 120 && (

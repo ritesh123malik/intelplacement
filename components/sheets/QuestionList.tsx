@@ -292,7 +292,10 @@ export default function QuestionList({ initialQuestions, sheetId }: Props) {
                                                             q.platform === 'cses' ? 'CSES' :
                                                                 q.platform === 'atcoder' ? 'AC' : q.platform}
                                                 </span>
-                                                <p className="text-[17px] font-black text-white group-hover:text-[var(--brand-primary)] transition-colors uppercase tracking-tight leading-tight">
+                                                <p
+                                                    className="text-[17px] font-black text-white group-hover:text-[var(--brand-primary)] transition-colors uppercase tracking-tight leading-tight cursor-pointer"
+                                                    onClick={() => q.url && window.open(q.url, '_blank')}
+                                                >
                                                     {q.title}
                                                 </p>
                                             </div>
@@ -331,11 +334,12 @@ export default function QuestionList({ initialQuestions, sheetId }: Props) {
                                     </td>
                                     <td className="px-8 py-6 text-right">
                                         <a
-                                            href={q.url}
+                                            href={q.url || `https://www.google.com/search?q=${encodeURIComponent(q.title + ' interview question')}`}
                                             target="_blank"
-                                            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-[var(--brand-primary)] hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl hover:shadow-[var(--brand-primary)]/20"
+                                            className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl hover:shadow-[var(--brand-primary)]/20 ${q.url ? 'bg-white text-black hover:bg-[var(--brand-primary)] hover:text-white' : 'bg-white/5 text-[var(--text-muted)] hover:bg-white/10 border border-white/5'
+                                                }`}
                                         >
-                                            Infiltrate <ArrowUpRight size={14} />
+                                            {q.url ? 'Infiltrate' : 'Trace Intel'} <ArrowUpRight size={14} />
                                         </a>
                                     </td>
                                 </tr>
